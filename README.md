@@ -30,6 +30,10 @@ vi /etc/environment, add:
 
 ## Configure Desktop Environment
 
+Download Intel graphics installer for linux, then run using proxy:
+
+    sudo http_proxy=$http_proxy intel-graphics-linux-installer
+
 In All Settings | Brightness & Lock:
 * Disable turning screen off when inactive
 * Disable lock
@@ -58,3 +62,62 @@ Configure and test ntp:
     sudo vi /etc/ntp.conf                (set server entry)
     sudo service ntp restart
     ntpdate -vdu (server)                (to debug connectivity)
+
+## Install Software Packages
+
+Install and configure git:
+
+    sudo apt-get install git
+    git config --global http.proxy http://proxy-us.intel.com:911
+    git config --global user.name “Robert A Dickinson”
+    git config --global user.email “robert.a.dickinson@intel.com”
+    git config --global branch.autosetuprebase always
+    git config --global branch.master.rebase always
+
+Install Kudu required libraries in steps 1 & 2 linked here:
+http://getkudu.io/docs/installation.html#ubuntu_from_source
+
+:warning: Install liboauth-dev library, or you'll get a warning when using CMake later ("liboauth not found on system.  Skipping twitter demo") and two automated tests will be skipped.
+
+    sudo apt-get install liboauth-dev
+
+## Updating Installed Packages
+
+    sudo apt-get update
+    sudo apt-get upgrade
+    sudo apt-get autoclean
+    sudo apt-get clean
+    sudo apt-get autoremove
+
+## Building Kudu
+
+Get the sources:
+
+    git clone https://github.com/cloudera/kudu.git
+
+vi ~/kudu-configure.sh, add:
+
+    #!/bin/bash -e
+    export KUDU_HOME=$HOME/samsungssd/kudu
+    export PATH=$KUDU_HOME/thirdparty/installed/bin:$PATH
+
+vi ~/kudu-test.sh, add:
+
+    #!/bin/bash -e
+    pushd . > /dev/null
+    mkdir -p $KUDU_HOME/build/debug
+    cd $KUDU_HOME/build/debug
+    cmake ../..
+    make -j8
+    http_proxy= https_proxy= HTTP_PROXY= HTTPS_PROXY= ctest "$@"
+    popd > /dev/null
+
+:warning: Tests may fail randomly if pid_max is not set:
+
+    sudo bash -c "echo '32768' > /proc/sys/kernel/pid_max" 
+
+Build and run tests:
+
+    source kudu-configure.sh          (once per terminal session)
+    ./kudu-test.sh                    (rebuild & run all tests)
+    ./kudu-test.sh -R (name)          (run single failing test)
