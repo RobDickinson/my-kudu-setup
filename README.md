@@ -112,7 +112,7 @@ vi ~/kudu-test.sh, add:
     http_proxy= https_proxy= HTTP_PROXY= HTTPS_PROXY= ctest "$@"
     popd > /dev/null
 
-:warning: Tests may fail randomly if pid_max is not set:
+:warning: Tests may fail randomly if pid_max is not set. (https://issues.apache.org/jira/browse/KUDU-1334)
 
     sudo bash -c "echo '32768' > /proc/sys/kernel/pid_max" 
 
