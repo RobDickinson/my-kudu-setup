@@ -112,6 +112,10 @@ vi ~/kudu-test.sh, add:
     http_proxy= https_proxy= HTTP_PROXY= HTTPS_PROXY= ctest "$@"
     popd > /dev/null
 
+:warning: As you can see in the script above, we expect regular proxy variables defined during the cmake phase (so
+third party libraries can be downloaded), but no proxy variables defined while tests are running. I haven't found an easy
+way to modify NO_PROXY that works across all automated tests, but the form above works.
+
 :warning: Tests may fail randomly if pid_max is not set. (https://issues.apache.org/jira/browse/KUDU-1334)
 
     sudo bash -c "echo '32768' > /proc/sys/kernel/pid_max" 
