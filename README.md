@@ -3,6 +3,7 @@ Using Ubuntu to build and test Kudu
 
 ## Install Ubuntu 15.10
 
+* Use either Desktop or Server version (both tested)
 * Install from USB drive
 * Skip download updates while installing
 * Skip installing MP3 third-party software
