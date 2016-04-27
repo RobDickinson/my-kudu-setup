@@ -99,7 +99,7 @@ Get the sources:
 vi ~/kudu-configure.sh, add:
 
     #!/bin/bash -e
-    export KUDU_HOME=$HOME/samsungssd/kudu
+    export KUDU_HOME=$HOME/kudu
     export PATH=$KUDU_HOME/thirdparty/installed/bin:$PATH
 
 vi ~/kudu-test.sh, add:
