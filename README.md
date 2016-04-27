@@ -1,6 +1,12 @@
 # my-kudu-setup
 Using Ubuntu to build and test Kudu
 
+## Background
+
+The Kudu documentation ([here](http://getkudu.io/docs/installation.html#ubuntu_from_source) and [here](https://github.com/cloudera/kudu)) is pretty good, but I wanted to create a reproducible procedure for building & testing Kudu on Ubuntu. (starting from scratch)
+
+This procedure also includes necessary tweaks for a proxied network environment like we have here at Intel.
+
 ## Install Ubuntu 15.10
 
 * Use either Desktop or Server version (both tested)
