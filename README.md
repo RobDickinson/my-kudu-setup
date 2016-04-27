@@ -113,7 +113,7 @@ vi ~/kudu-test.sh, add:
     http_proxy= https_proxy= HTTP_PROXY= HTTPS_PROXY= ctest "$@"
     popd > /dev/null
 
-:warning: As you can see in the script above, we expect regular proxy variables defined during the cmake phase (so
+:warning: As you can see in the script above, we need http proxy variables defined during the cmake phase (so
 third party libraries can be downloaded), but no proxy variables defined while tests are running. I haven't found an easy
 way to modify NO_PROXY that works across all automated tests, but the form above works.
 
@@ -123,6 +123,6 @@ way to modify NO_PROXY that works across all automated tests, but the form above
 
 Build and run tests:
 
-    source kudu-configure.sh          (once per terminal session)
-    ./kudu-test.sh                    (rebuild & run all tests)
-    ./kudu-test.sh -R (name)          (run single failing test)
+    source ~/kudu-configure.sh        (once per terminal session)
+    ~/kudu-test.sh                    (rebuild & run all tests)
+    ~/kudu-test.sh -R (name)          (run single failing test)
