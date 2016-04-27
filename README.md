@@ -82,7 +82,7 @@ http://getkudu.io/docs/installation.html#ubuntu_from_source
 
     sudo apt-get install liboauth-dev
 
-## Updating Installed Packages
+## Update Installed Packages
 
     sudo apt-get update
     sudo apt-get upgrade
@@ -90,7 +90,7 @@ http://getkudu.io/docs/installation.html#ubuntu_from_source
     sudo apt-get clean
     sudo apt-get autoremove
 
-## Building Kudu
+## Run Kudu Tests
 
 Get the sources:
 
@@ -126,3 +126,17 @@ Build and run tests:
     source ~/kudu-configure.sh        (once per terminal session)
     ~/kudu-test.sh                    (rebuild & run all tests)
     ~/kudu-test.sh -R (name)          (run single failing test)
+
+## Benchmarking Kudu Tests
+
+**446 seconds** average for all tests on high-end desktop machine:
+* Skylake i7-6700K CPU, 4 cores @ 4GHz
+* 16GB RAM (DDR4)
+* Intel SSD 540s
+* Ubuntu Desktop 15.10 (with all latest updates)
+
+**914 seconds** average for all tests on mid-range server machine:
+* Dual Xeon Ivytown CPUs, 16 cores @ 2.8GHz
+* 64GB RAM (DDR3)
+* 1TB SATA disk
+* Ubuntu Server 15.10 (with all latest updates)
