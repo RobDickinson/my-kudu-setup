@@ -1,11 +1,11 @@
 # my-kudu-setup
-Using Ubuntu to build and test Kudu
+Using Ubuntu and CLion for Kudu development
 
-## Background
+## Motivation
 
-The Kudu documentation ([here](http://getkudu.io/docs/installation.html#ubuntu_from_source) and [here](https://github.com/cloudera/kudu)) is pretty good, but I wanted to create a reproducible procedure for building & testing Kudu on Ubuntu. (starting from scratch)
+The Kudu documentation ([here](http://getkudu.io/docs/installation.html#ubuntu_from_source) and [here](https://github.com/cloudera/kudu)) is quite good, but I wanted to capture all the steps to configuring Ubuntu for Kudu development in one comphrensive and easily reproducible procedure.
 
-This procedure also includes necessary tweaks for a proxied network environment like we have here at Intel.
+This also includes necessary tweaks for a proxied network environment like we have here at Intel.
 
 ## Install Ubuntu 15.10
 
@@ -134,16 +134,26 @@ Build and run tests:
     ~/kudu-test.sh                    (rebuild & run all tests)
     ~/kudu-test.sh -R (name)          (run single failing test)
 
-## Benchmarking Kudu Tests
+## Benchmarking
 
-**446 seconds** average for all tests on high-end desktop machine:
-* Skylake i7-6700K CPU, 4 cores @ 4GHz
-* 16GB RAM (DDR4)
-* Intel SSD 540s
-* Ubuntu Desktop 15.10 (with all latest updates)
+Sometimes runtime performance is the best indication if things are running right, so here's some numbers to share.
 
-**914 seconds** average for all tests on mid-range server machine:
+Mid-range server machine:
+* 40-45 minutes to download/rebuild all Kudu third-party libraries
+* 914 seconds to run all Kudu tests
 * Dual Xeon Ivytown CPUs, 16 cores @ 2.8GHz
 * 64GB RAM (DDR3)
-* 1TB SATA disk
-* Ubuntu Server 15.10 (with all latest updates)
+* 1 x 1TB SATA disk
+* Ubuntu Server 15.10, with all latest updates
+* (did not test CLion, headless server)
+
+High-end workstation machine:
+* 20-22 minutes to download/build all Kudu third-party libraries
+* 446 seconds to run all Kudu tests
+* 258 seconds to open CLion project the first time, 102 seconds subsequently
+* Single Skylake i7-6700K CPU, 4 cores @ 4GHz
+* 16GB RAM (DDR4)
+* 2 x Intel SSD 540s (one for OS, one for KUDU_HOME directory)
+* Ubuntu Desktop 15.10, with all latest updates
+
+(all times were averaged over multiple attempts)
