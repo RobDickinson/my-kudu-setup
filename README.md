@@ -114,6 +114,7 @@ vi ~/kudu-test.sh, add:
     pushd . > /dev/null
     mkdir -p $KUDU_HOME/build/debug
     cd $KUDU_HOME/build/debug
+    $KUDU_HOME/thirdparty/build-if-necessary.sh
     cmake ../..
     make -j8
     http_proxy= https_proxy= HTTP_PROXY= HTTPS_PROXY= ctest "$@"
