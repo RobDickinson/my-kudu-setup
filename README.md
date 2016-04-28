@@ -116,7 +116,7 @@ vi ~/kudu-test.sh, add:
     cd $KUDU_HOME/build/debug
     $KUDU_HOME/thirdparty/build-if-necessary.sh
     cmake ../..
-    make -j8
+    make -j`nproc`
     http_proxy= https_proxy= HTTP_PROXY= HTTPS_PROXY= ctest "$@"
     popd > /dev/null
 
