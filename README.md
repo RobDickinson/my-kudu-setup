@@ -3,7 +3,7 @@ Using Ubuntu and CLion for Kudu development
 
 ## Motivation
 
-The Kudu documentation ([here](http://getkudu.io/docs/installation.html#ubuntu_from_source) and [here](https://github.com/cloudera/kudu)) is quite good, but I wanted to capture all the steps to configure Ubuntu for Kudu development in one comphrensive and easily reproducible procedure.
+The Kudu documentation ([here](http://getkudu.io/docs/installation.html#ubuntu_from_source) and [here](https://github.com/cloudera/kudu)) is quite good, but I wanted to capture all the steps to configure Ubuntu for Kudu development in one comphrensive and easily reproducible procedure. This starts with basic Ubuntu setup but proceeds through pitfalls in running Kudu automated tests, configuring with CLion for best performance, and finishes with some benchmark numbers to better compare your systems with mine. 
 
 This also includes necessary tweaks for a proxied network environment like we have here at Intel.
 
