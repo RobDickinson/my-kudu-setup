@@ -7,9 +7,9 @@ The Kudu documentation ([here](http://getkudu.io/docs/installation.html#ubuntu_f
 
 Highlights of this procedure include:
 * Configuring Ubuntu OS and Kudu build for required HTTP proxy (like we have at Intel)
-* Pitfalls to avoid in running Kudu automated tests
-* Configuring CLion for best performance
-* Benchmark results for long-running operations
+* Pitfalls to avoid in running [Kudu automated tests](https://github.com/RobDickinson/my-kudu-setup#run-kudu-tests)
+* [Configuring CLion](https://github.com/RobDickinson/my-kudu-setup#developing-kudu-with-clion) for Kudu development
+* [Benchmark results](https://github.com/RobDickinson/my-kudu-setup#benchmarking) for long-running operations
 
 ## Install Ubuntu 15.10
 
@@ -45,19 +45,13 @@ Download Intel graphics installer for linux, then run using proxy:
 
     sudo http_proxy=$http_proxy intel-graphics-linux-installer
 
-In All Settings | Brightness & Lock:
-* Disable turning screen off when inactive
-* Disable lock
-
 In All Settings | Security & Privacy:
 * For Files & Applications, disable "record file and application usage", clear usage data
 * For Search, disable "Include online search results"
 
 Configure Firefox for blank initial page, not to retain history
 
-Unlock extra icons from launcher
-
-## Configure Shell Environment
+## Configure OS Packages
 
 Fix keymapping for vi editor:
 
@@ -74,8 +68,6 @@ Configure and test ntp:
     sudo service ntp restart
     ntpdate -vdu (server)                (to debug connectivity)
 
-## Install Software Packages
-
 Install and configure git:
 
     sudo apt-get install git
@@ -87,10 +79,6 @@ Install and configure git:
 
 Install Kudu required libraries in steps 1 & 2 linked here:
 http://getkudu.io/docs/installation.html#ubuntu_from_source
-
-:warning: Install liboauth-dev library, or you'll get a warning when using CMake later ("liboauth not found on system.  Skipping twitter demo") and two automated tests will be skipped.
-
-    sudo apt-get install liboauth-dev
 
 ## Update Installed Packages
 
@@ -132,11 +120,73 @@ way to modify NO_PROXY that works across all automated tests, but the form above
 
     sudo bash -c "echo '32768' > /proc/sys/kernel/pid_max" 
 
+:warning: Install liboauth-dev library, or you'll get a CMake warning ("liboauth not found on system.  Skipping twitter demo") and two automated tests will be skipped.
+
+    sudo apt-get install liboauth-dev
+
 Build and run tests:
 
     source ~/kudu-configure.sh        (once per terminal session)
     ~/kudu-test.sh                    (rebuild & run all tests)
     ~/kudu-test.sh -R (name)          (run single failing test)
+
+## Developing Kudu with CLion
+
+### Installing CLion
+
+Download and extract tarball to local directory, set CLION_HOME
+
+vi $CLION_HOME/bin/clion64.vmoptions, add:
+
+    -Xms1000m
+    -Xmx4000m
+
+sudo vi /etc/sysctl.conf, add:
+
+    fs.inotify.max_user_watches = 524288
+
+Now apply that last change:
+
+    sudo sysctl -p
+
+### Configuring CLion
+
+Start CLion:
+
+    $CLION_HOME/bin/clion.sh
+
+Disable any plugins you don't intend to use, you can always add them back in later.
+
+For Toolchain configuration, use Kudu's CMake executable:
+KUDU_HOME/thirdparty/installed/bin/cmake
+
+From Welcome screen, use Configure | Settings
+* Appearance & Behavior | System Settings --> disable "Reopen last project on startup"
+* Appearance & Behavior | System Settings | HTTP Proxy --> set proxy if you have one
+* Click OK to close
+* Configure | Check for Update (verify proxy settings are working)
+
+### Creating CLion Project
+
+From Welcome screen, click "Open Project", select KUDU_HOME directory
+
+Click to ignore "Some source files are located outside of CMakeLists.txt directory" when this pops up
+
+From the File menu, select "Power Save Mode" to disable background inspections, clear/ignore warnings about this
+
+Wait for CLion to finish indexing the project files, this might take a while!
+
+### CLion Performance Factors
+
+Use the default JDK embedded with CLion. If you're keeping your CLion version up to date, then you already have a good recent JDK without any extra effort. I doubt that you'll see a performance difference by managing the JDK yourself.
+
+CLion likes extra memory, so recommend you allocate 2-4GB to the CLion JVM. But don't set -Xms/-Xmx to the same value! You want the JVM to find the best performing heap by itself, within the safe range set by -Xms and -Xmx.
+
+Enabling "Power Save Mode" prevents CLion from running automatic code inspections every time a file is opened and every time an open editor window gets focus back. Run code inspections manually from the Code menu when convenient for you instead. CLion has a great option for inspecting all uncommitted files at once, and I love this as an unofficial code review before committing any changes.
+
+CLion will take advantage of multiple CPU cores in parallel. I routinely see 7 of 8 cores saturate when loading the Kudu project. If investing in extra cores is an option, you'll be pleased to see improvements in indexing performance.
+
+Multiple disks can also boost CLion performance. I have a SSD for my boot drive, and a second SSD for my KUDU_HOME directory. When CLion builds caches and indexes, it's reading from one SSD while writing to the other.
 
 ## Benchmarking
 
