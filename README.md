@@ -80,25 +80,29 @@ Install and configure git:
 Install Kudu required libraries in steps 1 & 2 linked here:
 http://getkudu.io/docs/installation.html#ubuntu_from_source
 
-## Update Installed Packages
+Install ccache using default configuration:
 
-    sudo apt-get update
-    sudo apt-get upgrade
-    sudo apt-get autoclean
-    sudo apt-get clean
-    sudo apt-get autoremove
+    sudo apt-get install ccache
 
 ## Run Kudu Tests
+
+:warning: Tests may fail randomly if pid_max is not set. (https://issues.apache.org/jira/browse/KUDU-1334)
+
+    sudo bash -c "echo '32768' > /proc/sys/kernel/pid_max" 
+
+:warning: Install liboauth-dev library, or you'll get a CMake warning ("liboauth not found on system.  Skipping twitter demo") and two automated tests will be skipped.
+
+    sudo apt-get install liboauth-dev
 
 Get the sources:
 
     git clone https://github.com/cloudera/kudu.git
 
-vi ~/kudu-configure.sh, add:
+vi ~/kudu-env.sh, add:
 
     #!/bin/bash -e
     export KUDU_HOME=$HOME/kudu
-    export PATH=$KUDU_HOME/thirdparty/installed/bin:$PATH
+    export PATH=/usr/lib/ccache:$KUDU_HOME/thirdparty/installed/bin:$PATH
 
 vi ~/kudu-test.sh, add:
 
@@ -116,19 +120,11 @@ vi ~/kudu-test.sh, add:
 third party libraries can be downloaded), but no proxy variables defined while tests are running. I haven't found an easy
 way to modify NO_PROXY that works across all automated tests, but the form above works.
 
-:warning: Tests may fail randomly if pid_max is not set. (https://issues.apache.org/jira/browse/KUDU-1334)
-
-    sudo bash -c "echo '32768' > /proc/sys/kernel/pid_max" 
-
-:warning: Install liboauth-dev library, or you'll get a CMake warning ("liboauth not found on system.  Skipping twitter demo") and two automated tests will be skipped.
-
-    sudo apt-get install liboauth-dev
-
 Build and run tests:
 
-    source ~/kudu-configure.sh        (once per terminal session)
-    ~/kudu-test.sh                    (rebuild & run all tests)
-    ~/kudu-test.sh -R (name)          (run single failing test)
+    source ~/kudu-env.sh          (once per terminal session)
+    ~/kudu-test.sh                (rebuild & run all tests)
+    ~/kudu-test.sh -R (name)      (run single failing test)
 
 ## Developing Kudu with CLion
 
@@ -211,3 +207,11 @@ High-end workstation machine:
 * Ubuntu Desktop 15.10, with all latest updates
 
 (all times were averaged over multiple attempts)
+
+## Update Installed Packages
+
+    sudo apt-get update
+    sudo apt-get upgrade
+    sudo apt-get autoclean
+    sudo apt-get clean
+    sudo apt-get autoremove
