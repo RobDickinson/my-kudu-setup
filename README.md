@@ -80,19 +80,15 @@ Install and configure git:
 Install Kudu required libraries in steps 1 & 2 linked here:
 http://getkudu.io/docs/installation.html#ubuntu_from_source
 
-Install ccache using default configuration:
+Install Kudu optional packages:
 
-    sudo apt-get install ccache
+    sudo apt-get install ccache liboauth-dev
 
 ## Run Kudu Tests
 
 :warning: Tests may fail randomly if pid_max is not set. (https://issues.apache.org/jira/browse/KUDU-1334)
 
     sudo bash -c "echo '32768' > /proc/sys/kernel/pid_max" 
-
-:warning: Install liboauth-dev library, or you'll get a CMake warning ("liboauth not found on system.  Skipping twitter demo") and two automated tests will be skipped.
-
-    sudo apt-get install liboauth-dev
 
 Get the sources:
 
@@ -190,7 +186,7 @@ Sometimes runtime performance is the best indication if things are running right
 
 Mid-range server machine:
 * 40-45 minutes to download/rebuild all Kudu third-party libraries
-* 914 seconds to run all Kudu tests
+* 914 seconds to run all Kudu tests (in series)
 * Dual Xeon Ivytown CPUs, 16 cores @ 2.8GHz
 * 64GB RAM (DDR3)
 * 1 x 1TB SATA disk
@@ -199,7 +195,7 @@ Mid-range server machine:
 
 High-end workstation machine:
 * 20-22 minutes to download/build all Kudu third-party libraries
-* 446 seconds to run all Kudu tests
+* 446 seconds to run all Kudu tests (in series)
 * 258 seconds to open CLion project the first time, 102 seconds subsequently
 * Single Skylake i7-6700K CPU, 4 cores @ 4GHz
 * 16GB RAM (DDR4)
