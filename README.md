@@ -186,8 +186,8 @@ Sometimes runtime performance is the best indication if things are running right
 
 Mid-range server machine:
 * 40-45 minutes to download/rebuild all Kudu third-party libraries
-* 914 seconds to run all Kudu tests (-j1)
-* 428 seconds to run all Kudu tests (-j16)
+* 914 seconds to run debug tests (-j1)
+* 428 seconds to run debug tests (-j16)
 * Dual Xeon Ivytown CPUs, 16 cores @ 2.8GHz
 * 64GB RAM (DDR3)
 * 1 x 1TB SATA disk
@@ -196,8 +196,8 @@ Mid-range server machine:
 
 High-end workstation machine:
 * 20-22 minutes to download/build all Kudu third-party libraries
-* 446 seconds to run all Kudu tests (-j1)
-* 199 seconds to run all Kudu tests (-j4)
+* 446 seconds to run debug tests (-j1)
+* 199 seconds to run debug tests (-j4)
 * 258 seconds to open CLion project the first time, 102 seconds subsequently
 * Single Skylake i7-6700K CPU, 4 cores @ 4GHz
 * 16GB RAM (DDR4)
