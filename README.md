@@ -184,6 +184,30 @@ Multiple disks can also boost CLion performance. I have a SSD for my boot drive,
 
 Sometimes runtime performance is the best indication if things are running right, so here's some numbers to share.
 
+### Machine Configurations
+
+Ivytown:
+* 2 x Xeon Ivytown CPU, 16 cores each @ 2.8GHz
+* 64GB RAM (DDR3)
+* 1 x 1TB SATA disk
+* Ubuntu Server 15.10, with all latest updates
+
+Skylake:
+* 1 x Skylake i7-6700K CPU, 4 cores @ 4GHz
+* 16GB RAM (DDR4)
+* 2 x Intel SSD 540s (one for OS, one for KUDU_HOME directory)
+* Ubuntu Desktop 15.10, with all latest updates
+
+### Benchmark Times
+
+Test Run | Ivytown | Skylake
+------------ | ------------- | ------------- 
+Download/rebuild third-party libraries | 40-45 minutes | 20-22 minutes
+Run debug tests in series (-j1) | 914 sec | 446 sec
+Run debug tests in parallel | 428 sec (-j16) | 199 sec (-j4)
+Opening CLion project (cold) | n/a | 258 sec
+Opening CLion project (warm) | n/a | 102 sec
+
 Mid-range server machine:
 * 40-45 minutes to download/rebuild all Kudu third-party libraries
 * 914 seconds to run debug tests (-j1)
@@ -203,8 +227,6 @@ High-end workstation machine:
 * 16GB RAM (DDR4)
 * 2 x Intel SSD 540s (one for OS, one for KUDU_HOME directory)
 * Ubuntu Desktop 15.10, with all latest updates
-
-(all times were averaged over multiple attempts)
 
 ## Update Installed Packages
 
