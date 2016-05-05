@@ -207,31 +207,3 @@ Run debug tests in series (-j1) | 914 sec | 446 sec
 Run debug tests in parallel | 428 sec (-j16) | 199 sec (-j4)
 Opening CLion project (cold) | n/a | 258 sec
 Opening CLion project (warm) | n/a | 102 sec
-
-Mid-range server machine:
-* 40-45 minutes to download/rebuild all Kudu third-party libraries
-* 914 seconds to run debug tests (-j1)
-* 428 seconds to run debug tests (-j16)
-* Dual Xeon Ivytown CPUs, 16 cores @ 2.8GHz
-* 64GB RAM (DDR3)
-* 1 x 1TB SATA disk
-* Ubuntu Server 15.10, with all latest updates
-* (did not test CLion, headless server)
-
-High-end workstation machine:
-* 20-22 minutes to download/build all Kudu third-party libraries
-* 446 seconds to run debug tests (-j1)
-* 199 seconds to run debug tests (-j4)
-* 258 seconds to open CLion project the first time, 102 seconds subsequently
-* Single Skylake i7-6700K CPU, 4 cores @ 4GHz
-* 16GB RAM (DDR4)
-* 2 x Intel SSD 540s (one for OS, one for KUDU_HOME directory)
-* Ubuntu Desktop 15.10, with all latest updates
-
-## Update Installed Packages
-
-    sudo apt-get update
-    sudo apt-get upgrade
-    sudo apt-get autoclean
-    sudo apt-get clean
-    sudo apt-get autoremove
