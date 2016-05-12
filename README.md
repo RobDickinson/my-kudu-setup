@@ -1,81 +1,7 @@
 # my-kudu-setup
 Using Ubuntu and CLion for Kudu development
 
-## Background
-
-The Kudu documentation ([here](http://getkudu.io/docs/installation.html#ubuntu_from_source) and [here](https://github.com/cloudera/kudu)) is quite good, but I'm attempting to capture all steps to configure Ubuntu for Kudu development in one comphrensive and easily reproducible procedure.
-
-Highlights of this procedure include:
-* Configuring Ubuntu OS and Kudu build for required HTTP proxy (like we have at Intel)
-* Pitfalls to avoid in running [Kudu automated tests](https://github.com/RobDickinson/my-kudu-setup#run-kudu-tests)
-* [Configuring CLion](https://github.com/RobDickinson/my-kudu-setup#developing-kudu-with-clion) for Kudu development
-* [Benchmark results](https://github.com/RobDickinson/my-kudu-setup#benchmarking) for long-running operations
-
-## Install Ubuntu 15.10
-
-* Use either Desktop or Server version (both tested)
-* Install from USB drive
-* Skip download updates while installing
-* Skip installing MP3 third-party software
-* Use default partitioning scheme (ext4 by default)
-
-## Configure Network Proxy
-
-### For Desktop
-
-In All Settings | Network | Network Proxy:
-* Method = Manual
-* HTTP Proxy = proxy-us.intel.com:911
-* HTTPS Proxy = proxy-us.intel.com:911
-
-### For Server
-
-vi /etc/environment, add:
-
-    http_proxy="http://proxy-us.intel.com:911"
-    https_proxy="http://proxy-us.intel.com:911"
-    HTTP_PROXY="http://proxy-us.intel.com:911"
-    HTTPS_PROXY="http://proxy-us.intel.com:911"
-    no_proxy="localhost,127.0.0.0/8,::1"
-    NO_PROXY="localhost,127.0.0.0/8,::1"
-
-## Configure Desktop Environment
-
-Download Intel graphics installer for linux, then run using proxy:
-
-    sudo http_proxy=$http_proxy intel-graphics-linux-installer
-
-In All Settings | Security & Privacy:
-* For Files & Applications, disable "record file and application usage", clear usage data
-* For Search, disable "Include online search results"
-
-Configure Firefox for blank initial page, not to retain history
-
-## Configure OS Packages
-
-Fix keymapping for vi editor:
-
-    echo "set nocompatible" >> $HOME/.vimrc
-
-Configure /etc/apt/apt.conf to use proxy:
-
-    Acquire::http::Proxy "http://proxy-us.intel.com:911";
-
-Configure and test ntp:
-
-    sudo apt-get install ntp ntpdate
-    sudo vi /etc/ntp.conf                (set server entry)
-    sudo service ntp restart
-    ntpdate -vdu (server)                (to debug connectivity)
-
-Install and configure git:
-
-    sudo apt-get install git
-    git config --global http.proxy http://proxy-us.intel.com:911
-    git config --global user.name “Robert A Dickinson”
-    git config --global user.email “robert.a.dickinson@intel.com”
-    git config --global branch.autosetuprebase always
-    git config --global branch.master.rebase always
+## Getting Started
 
 Install Kudu required libraries in steps 1 & 2 linked here:
 http://getkudu.io/docs/installation.html#ubuntu_from_source
@@ -86,7 +12,7 @@ Install Kudu optional packages:
 
 ## Run Kudu Tests
 
-:warning: Tests may fail randomly if pid_max is not set. (https://issues.apache.org/jira/browse/KUDU-1334)
+**WARNING!** Tests may fail randomly if pid_max is not set. (https://issues.apache.org/jira/browse/KUDU-1334)
 
     sudo bash -c "echo '32768' > /proc/sys/kernel/pid_max" 
 
@@ -112,7 +38,7 @@ vi ~/kudu-test-debug.sh, add:
     http_proxy= https_proxy= HTTP_PROXY= HTTPS_PROXY= ctest "$@"
     popd > /dev/null
 
-:warning: As you can see in the script above, we need http proxy variables defined during the cmake phase (so
+**WARNING!** As you can see in the script above, we need http proxy variables defined during the cmake phase (so
 third party libraries can be downloaded), but no proxy variables defined while tests are running. I haven't found an easy
 way to modify NO_PROXY that works across all automated tests, but the form above works.
 
