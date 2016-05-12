@@ -12,7 +12,7 @@ Install Kudu optional packages:
 
     sudo apt-get install ccache liboauth-dev
 
-## Run Kudu Tests
+## Running Kudu Tests
 
 **WARNING!** Tests may fail randomly if pid_max is not set. (https://issues.apache.org/jira/browse/KUDU-1334)
 
