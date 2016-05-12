@@ -3,7 +3,9 @@ Using Ubuntu and CLion for Kudu development
 
 ## Getting Started
 
-Install Kudu required libraries in steps 1 & 2 linked here:
+Start with fresh install of Ubuntu 15.10 (either desktop or server distribution)
+
+Install Kudu required libraries in steps 1 & 2 here:
 http://getkudu.io/docs/installation.html#ubuntu_from_source
 
 Install Kudu optional packages:
