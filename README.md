@@ -1,5 +1,5 @@
 # my-kudu-setup
-Using Ubuntu and CLion for Kudu development
+Using CLion on Ubuntu for Kudu development
 
 ## Getting Started
 
