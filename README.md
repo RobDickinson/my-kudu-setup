@@ -14,6 +14,8 @@ Install Kudu optional packages:
 
 ## Running Kudu Tests
 
+**WARNING!** Tests will start failing for hybrid_clock-test and later if NTP is not active and synced.
+
 **WARNING!** Tests may fail randomly if pid_max is not set. (https://issues.apache.org/jira/browse/KUDU-1334)
 
     sudo bash -c "echo '32768' > /proc/sys/kernel/pid_max" 
