@@ -1,6 +1,3 @@
-# my-kudu-setup
-Hacking on Kudu using Ubuntu and CLion
-
 ## Getting Started
 
 Start with Ubuntu 16.04 (either desktop or server distribution)
@@ -52,9 +49,7 @@ Build and run tests:
     ~/kudu-test-debug.sh -j4         (rebuild & run tests, 4 at a time)
     ~/kudu-test-debug.sh -R (name)   (run single failing test)
 
-## Developing Kudu with CLion
-
-### Installing CLion
+## Installing CLion
 
 Download and extract tarball to local directory, set CLION_HOME
 
@@ -71,8 +66,6 @@ Now apply that last change:
 
     sudo sysctl -p
 
-### Configuring CLion
-
 Start CLion:
 
     $CLION_HOME/bin/clion.sh
@@ -82,13 +75,7 @@ Disable any plugins you don't intend to use, you can always add them back in lat
 For Toolchain configuration, use Kudu's CMake executable:
 KUDU_HOME/thirdparty/installed/bin/cmake
 
-From Welcome screen, use Configure | Settings
-* Appearance & Behavior | System Settings --> disable "Reopen last project on startup"
-* Appearance & Behavior | System Settings | HTTP Proxy --> set to Intel proxy
-* Click OK to close
-* Configure | Check for Update (verify proxy settings are working)
-
-### Creating CLion Project
+## Creating CLion Project
 
 From Welcome screen, click "Open Project", select KUDU_HOME directory
 
@@ -98,7 +85,7 @@ From the File menu, select "Power Save Mode" to disable background inspections, 
 
 Wait for CLion to finish indexing the project files, this might take a while!
 
-### CLion Performance Factors
+## CLion Performance Factors
 
 Use the default JDK embedded with CLion. If you're keeping your CLion version up to date, then you already have a good recent JDK without any extra effort. I doubt that you'll see a performance difference by managing the JDK yourself.
 
