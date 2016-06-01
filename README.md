@@ -12,6 +12,10 @@ Install Kudu optional packages:
 
     sudo apt-get install ccache liboauth-dev
 
+Get the sources:
+
+    git clone https://github.com/cloudera/kudu.git
+
 ## Running Kudu Tests
 
 **WARNING!** Tests will start failing for hybrid_clock-test and later if NTP is not active and synced.
@@ -19,10 +23,6 @@ Install Kudu optional packages:
 **WARNING!** Tests may fail randomly if pid_max is not set. (https://issues.apache.org/jira/browse/KUDU-1334)
 
     sudo bash -c "echo '32768' > /proc/sys/kernel/pid_max" 
-
-Get the sources:
-
-    git clone https://github.com/cloudera/kudu.git
 
 vi ~/kudu-env.sh, add:
 
