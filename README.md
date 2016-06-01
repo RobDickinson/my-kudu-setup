@@ -1,5 +1,5 @@
 # my-kudu-setup
-Using CLion on Ubuntu for Kudu development
+Hacking on Kudu using Ubuntu and CLion
 
 ## Getting Started
 
@@ -16,7 +16,7 @@ Get the sources:
 
     git clone https://github.com/cloudera/kudu.git
 
-## Running Kudu Tests
+## Building and Running Tests
 
 **WARNING!** Tests will start failing for hybrid_clock-test and later if NTP is not active and synced.
 
@@ -84,7 +84,7 @@ KUDU_HOME/thirdparty/installed/bin/cmake
 
 From Welcome screen, use Configure | Settings
 * Appearance & Behavior | System Settings --> disable "Reopen last project on startup"
-* Appearance & Behavior | System Settings | HTTP Proxy --> set proxy if you have one
+* Appearance & Behavior | System Settings | HTTP Proxy --> set to Intel proxy
 * Click OK to close
 * Configure | Check for Update (verify proxy settings are working)
 
