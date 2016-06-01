@@ -3,7 +3,7 @@ Using CLion on Ubuntu for Kudu development
 
 ## Getting Started
 
-Start with fresh install of Ubuntu 16.04 (either desktop or server distribution)
+Start with Ubuntu 16.04 (either desktop or server distribution)
 
 Install Kudu required libraries in steps 1 & 2 here:
 http://getkudu.io/docs/installation.html#ubuntu_from_source
